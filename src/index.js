@@ -286,7 +286,6 @@ fieldEl.addEventListener('click', e => {
         oppFieldEl.addEventListener('click', ev => {
             if (ev.target.nodeName === "IMG") {
                 oppCard = p2.field.find(c => c.id === ev.target.id)
-
                 attackVattack(myCard, oppCard)
             }
         })
@@ -317,11 +316,9 @@ deck.addEventListener('click', () => {
     drawCard()
 })
 
-var deckEl = document.querySelector("#my-deck")
-deckEl.addEventListener('click', event => { drawCard() })
 
 //Play card 
-const fieldEl = document.querySelector('.my-monsters')
+
 
 
 renderFieldMonster = card => {
