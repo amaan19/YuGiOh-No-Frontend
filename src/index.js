@@ -286,11 +286,13 @@ const fieldEl = document.querySelector('.my-monsters')
 fieldEl.addEventListener('click', e => {
     if (e.target.nodeName === "IMG") {
         myCard = p1.field.find(c => c.id === e.target.id)
+        e.target.classList.toggle('atk-card')
 
         oppFieldEl.addEventListener('click', ev => {
             if (ev.target.nodeName === "IMG") {
                 oppCard = p2.field.find(c => c.id === ev.target.id)
                 attackVattack(myCard, oppCard)
+                e.target.classList.toggle('atk-card')
             }
         })
     }
