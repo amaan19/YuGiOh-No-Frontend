@@ -13,8 +13,10 @@ body{
 img {
     height: auto;
     width: 100px;
-    
+    transition: width 0.5s;
 }
+
+
 
 .defense {
   transform: rotate(90deg);
@@ -30,6 +32,7 @@ img {
   margin-top: 20px;
   padding: 20px;
 }
+ 
 
 .my-field{
   text-align: center;
@@ -41,12 +44,13 @@ img {
 }
 
 .my-lifepoints {
-    background-color: #cfc;
+    background-color: rgba(0, 128, 0,0.7);
     padding: 10px ;
     border: 1px solid green ;
     width: 100px;
     grid-row: 1;
     grid-column: 1;
+    font-size: 20px;
     text-align: center;
   }
 
@@ -56,12 +60,12 @@ img {
 
   .opp-lifepoints {
     text-align: center;
-    background-color: rgb(255, 87, 87) ;
+    background-color: rgba(255, 87, 87,0.7) ;
     padding: 10px ;
     border: 1px solid red ;
     width: 100px;
     display: inline-block;
-    
+    font-size: 20px;
     grid-column: 3;
     grid-row:2;
   }
@@ -86,10 +90,19 @@ img {
   }
   #my-hand > img {
     margin: auto;
+    
+  }
+   #my-hand > img:hover{
+    width: 300px;
+    height: auto;
   }
 
   .opp-cards {
     text-align: left;
+    padding: 10px;
+  }
+  .my-cards{
+    padding: 10px;
   }
 
   #opp-deck {
@@ -113,17 +126,40 @@ img {
 
   #opp-hand > img {
     margin: auto;
+    
   }
 
+  #opp-spells > img:hover{
+    width: 300px;
+    height: auto;
+  }
+
+  #opp-monsters > img:hover{
+    width: 300px;
+    height: auto;
+  }
+  .my-spells > img:hover{
+    width: 300px;
+    height: auto;
+  }
+  .my-monsters > img:hover{
+    width: 300px;
+    height: auto;
+  }
+
+ 
   .grid-container{
     display: grid;
     /*grid-template-columns: auto auto auto auto auto auto auto;*/
     grid-gap: 5px;
     place-items: center center;
+    border-style: ridge;
+    border-color:  rgba(255,255,255, 0.3);
+    border-width: 1px;
   }
 
   .container{
-    width:75%;
+    width:80%;
     margin: auto;  
     background-color: rgba(255,255,255, 0.3)
     
