@@ -1,0 +1,106 @@
+img {
+    height: 100px;
+    width: 70px;
+    padding: 20px;
+}
+
+.defense {
+  transform: rotate(90deg);
+}
+
+
+.my-div {
+  text-align: center;
+}
+
+.opp-field {
+  text-align: center;
+  margin-top: 20px;
+}
+.card {
+    overflow-x: hidden;
+}
+
+.my-lifepoints {
+    background-color: #cfc;
+    padding: 10px ;
+    border: 1px solid green ;
+    width: 100px;
+    margin-left: 800px;
+    text-align: center;
+  }
+
+  #opp-spells{
+    /* margin: 200px; */
+  }
+
+  .opp-lifepoints {
+    text-align: center;
+    background-color: rgb(255, 87, 87) ;
+    padding: 10px ;
+    border: 1px solid red ;
+    width: 100px;
+    display: inline-block;
+    margin-right: 400px;
+  }
+
+  .non-field-cards {
+    text-align: right;
+  }
+
+  #my-deck {
+    text-align: right;
+    margin-right: 100px;
+  }
+
+  #my-hand {
+    margin: 100px;
+    text-align: center;
+    
+  }
+
+  .opp-cards {
+    text-align: left;
+  }
+
+  #opp-deck {
+    text-align: left;
+    margin-left: 100px;
+  }
+
+  #opp-hand {
+    margin: 100px;
+    
+  }
+
+/* Grid stuff */
+/* .wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+}
+.one {
+  grid-column: 1 / 3;
+  grid-row: 1;
+}
+.two { 
+  grid-column: 2 / 4;
+  grid-row: 1 / 3;
+}
+.three {
+  grid-column: 1;
+  grid-row: 2 / 5;
+}
+.four {
+  grid-column: 3;
+  grid-row: 3;
+}
+.five {
+  grid-column: 2;
+  grid-row: 4;
+}
+.six {
+  grid-column: 3;
+  grid-row: 4;
+} */
