@@ -234,8 +234,11 @@ drawCard = () => {
     renderHandCard(card)
 }
 
+var deckEl = document.querySelector("#my-deck")
+deckEl.addEventListener('click', event => { drawCard() })
+
 //Play card 
-const fieldEl = document.querySelector('.my-monster-field')
+const fieldEl = document.querySelector('.my-monsters')
 
 renderFieldCard = card => {
     cardImg = document.createElement('img')
@@ -251,7 +254,14 @@ playCard = card => {
 
 }
 
-const handCards = document.querySelector('.non-field-cards')
+startingHand()
+
+initialize = () => {
+    gameStart()
+    startingHand()
+}
+
+const handCards = document.querySelector('#my-hand')
 
 handCards.addEventListener('click', e => {
     car = p1.hand.find(card => card.id == e.target.id)
@@ -259,9 +269,45 @@ handCards.addEventListener('click', e => {
 })
 
 
-initialize = () => {
-    gameStart()
-    startingHand()
+let gamestate = []
+
+function getGame(id) {
+    fetch(`http://localhost:3000/api/v1/games/${id}`).then(function (response) { return response.json() }).then(game => getGameState(game))
 }
 
-initialize() 
+function getGameState(game) { gamestate = game.gamestate }
+
+let currentCard = null
+
+function getCard(card_id) {
+    fetch(`http://localhost:3000/api/v1/cards/${card_id}`).then(function (response) { return response.json() }).then(card => currentCard = card)
+}
+
+
+function updateGameState() {
+    fetch(`http://localhost:3000/api/v1/games/${gamestate.game_id}`, {
+        method: 'PUT',
+        body: JSON.stringify(gamestate),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    }).then(res => res.json())
+        .then(response => console.log('Success:', JSON.stringify(response)))
+        .catch(error => console.error('Error:', error));
+}
+
+function getMyDeck() {
+    fetch(`http://localhost:3000/api/v1/decks/${gamestate.p1deckid}`).then(function (response) { return response.json() }).then(deck => loadDeck(deck, "me"))
+}
+
+function getOppDeck() {
+    fetch(`http://localhost:3000/api/v1/decks/${gamestate.p2deckid}`).then(function (response) { return response.json() }).then(deck => loadDeck(deck, "opp"))
+}
+
+function loadDeck(deck, player) {
+    if (player === "me") {
+        deck1 = deck.cards
+    } else {
+        deck2 = deck.cards
+    }
+}
