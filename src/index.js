@@ -166,14 +166,18 @@ state = {
         deck: deck1,
         hand: [],
         field: [],
-        currentCard: null
+        currentCard: null,
+        drawnCard: false,
+        turnSummonedMonsters: 0
     },
     p2: {
         life: null,
         deck: deck2,
         hand: [],
         field: [],
-        currentCard: null
+        currentCard: null,
+        drawnCard: false,
+        turnSummonedMonsters: 0
     },
     inplay: []
 }
@@ -315,9 +319,15 @@ destroyOppMonster = card => {
 const deck = document.querySelector('#my-deck')
 
 drawCard = () => {
-    card = p1.deck.pop()
-    addToHandState(card)
-    renderHandCard(card)
+    if (!p1.drawnCard) {
+        card = p1.deck.pop()
+        addToHandState(card)
+        renderHandCard(card)
+        p1.drawnCard = true
+    } else {
+        alert("You've already drawn a card this turn")
+    }
+
 }
 deck.addEventListener('click', () => {
     drawCard()
@@ -336,10 +346,16 @@ renderFieldMonster = card => {
 }
 
 playCard = card => {
-    renderFieldMonster(card)
-    addToFieldState(card)
-    removeFromHand(card)
-    renderHandCards(p1.hand)
+    if (p1.turnSummonedMonsters < 2) {
+        renderFieldMonster(card)
+        addToFieldState(card)
+        removeFromHand(card)
+        renderHandCards(p1.hand)
+        p1.turnSummonedMonsters += 1
+    } else {
+        alert("You've already summoned 2 monsters this turn")
+    }
+
 }
 
 const handCards = document.querySelector('#my-hand')
