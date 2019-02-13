@@ -268,6 +268,9 @@ renderOppFieldMonsters = cards => {
 }
 
 
+let myLifeCounter = document.querySelector(".my-lifepoints")
+let oppLifeCounter = document.querySelector(".opp-lifepoints")
+
 //Attacking 
 attackVattack = (myMonster, oppMonster) => {
     difference = myMonster.atk - oppMonster.atk
@@ -280,7 +283,11 @@ attackVattack = (myMonster, oppMonster) => {
         p1.life += difference
     } else {
     }
+    myLifeCounter.innerText = `Your Lifepoints: ${p1.life}`
+    oppLifeCounter.innerText = `Oppostion Lifepoints: ${p2.life}`
 }
+
+
 const fieldEl = document.querySelector('.my-monsters')
 
 fieldEl.addEventListener('click', e => {
