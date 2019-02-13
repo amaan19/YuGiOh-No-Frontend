@@ -1,7 +1,19 @@
+@font-face {
+  font-family: MatrixBold;
+  src: url(Matrix-Bold.ttf);
+}
+
+body{
+  font-family: MatrixBold;
+  background-image: url(src/Starsinthesky.jpg);
+    background-size: cover;
+}
+
+
 img {
-    height: 100px;
-    width: 70px;
-    padding: 20px;
+    height: auto;
+    width: 100px;
+    
 }
 
 .defense {
@@ -9,13 +21,20 @@ img {
 }
 
 
-.my-div {
+.my-field {
   text-align: center;
 }
 
 .opp-field {
   text-align: center;
   margin-top: 20px;
+  padding: 20px;
+}
+
+.my-field{
+  text-align: center;
+  margin-top: 20px;
+  padding: 20px;
 }
 .card {
     overflow-x: hidden;
@@ -26,7 +45,8 @@ img {
     padding: 10px ;
     border: 1px solid green ;
     width: 100px;
-    margin-left: 800px;
+    grid-row: 1;
+    grid-column: 1;
     text-align: center;
   }
 
@@ -41,7 +61,9 @@ img {
     border: 1px solid red ;
     width: 100px;
     display: inline-block;
-    margin-right: 400px;
+    
+    grid-column: 3;
+    grid-row:2;
   }
 
   .non-field-cards {
@@ -50,13 +72,20 @@ img {
 
   #my-deck {
     text-align: right;
-    margin-right: 100px;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    width: 120px;
+    height: auto;
+
   }
 
   #my-hand {
-    margin: 100px;
-    text-align: center;
-    
+    margin: 25px;
+    grid-row: 2;
+    grid-column: 2;
+  }
+  #my-hand > img {
+    margin: auto;
   }
 
   .opp-cards {
@@ -65,12 +94,50 @@ img {
 
   #opp-deck {
     text-align: left;
-    margin-left: 100px;
+    /*margin-left: 100px;*/
+    grid-row-start: 1;
+    grid-row-end: 3;
+    grid-column: 1;
+    width: 120px;
+    height: auto; 
+  }
+
+  #opp-deck > img {
+    
   }
 
   #opp-hand {
-    margin: 100px;
+    margin: 25px;
+    grid-column: 2;
+  }
+
+  #opp-hand > img {
+    margin: auto;
+  }
+
+  .grid-container{
+    display: grid;
+    /*grid-template-columns: auto auto auto auto auto auto auto;*/
+    grid-gap: 5px;
+    place-items: center center;
+  }
+
+  .container{
+    width:75%;
+    margin: auto;  
+    background-color: rgba(255,255,255, 0.3)
     
+  }
+
+  .header{
+    margin:auto;
+    text-align: center;
+    padding-top: 20px;
+  }
+
+  .header >img{
+    width: 600px;
+    height:auto;
   }
 
 /* Grid stuff */
