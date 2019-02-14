@@ -185,16 +185,21 @@ state = {
 p1 = state.p1
 p2 = state.p2
 
+const myLifeCounter = document.querySelector('.my-lifepoints')
+const oppLifeCounter = document.querySelector('.opp-lifepoints')
 
 gameStart = () => {
     p1.life = 4000
     p2.life = 4000
+    myLifeCounter.innerText = `Your Lifepoints: ${p1.life}`
+    oppLifeCounter.innerText = `Oppostion Lifepoints: ${p2.life}`
 }
+
 
 //DISPLAYING CARDS 
 
 //Hand
-var handEl = document.querySelector('#my-hand')
+const handEl = document.querySelector('#my-hand')
 
 //My Helper functions
 
@@ -268,8 +273,6 @@ renderOppFieldMonsters = cards => {
 }
 
 
-let myLifeCounter = document.querySelector(".my-lifepoints")
-let oppLifeCounter = document.querySelector(".opp-lifepoints")
 
 //Attacking 
 attackVattack = (myMonster, oppMonster) => {
@@ -277,11 +280,11 @@ attackVattack = (myMonster, oppMonster) => {
     if (difference > 0) {
         destroyOppMonster(oppMonster)
         p2.life -= difference
-        renderOppFieldMonsters(p2.field)
     } else if (difference < 0) {
         destroyMyMonster(myMonster)
         p1.life += difference
     } else {
+        alert("Monsters have the same attack points. Nothing happens")
     }
     myLifeCounter.innerText = `Your Lifepoints: ${p1.life}`
     oppLifeCounter.innerText = `Oppostion Lifepoints: ${p2.life}`
@@ -294,7 +297,6 @@ fieldEl.addEventListener('click', e => {
     if (e.target.nodeName === "IMG") {
         myCard = p1.field.find(c => c.id === e.target.id)
         e.target.classList.toggle('atk-card')
-
         oppFieldEl.addEventListener('click', ev => {
             if (ev.target.nodeName === "IMG") {
                 oppCard = p2.field.find(c => c.id === ev.target.id)
@@ -410,3 +412,11 @@ function loadDeck(deck, player) {
         deck2 = deck.cards
     }
 }
+
+initialize = () => {
+    startingHand()
+    gameStart()
+
+}
+
+initialize() 
