@@ -180,3 +180,16 @@ img {
   border-style: solid;
   border-color: red;
 }
+
+.button {
+  font-family: MatrixBold;
+  text-align: center;
+  height: 90px;
+  width: auto;
+  font-size: 100px;
+  background-color: beige;
+  border-color: black;
+  margin-bottom: 20px;
+  border-style
+}
+
