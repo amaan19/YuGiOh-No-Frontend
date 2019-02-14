@@ -1,16 +1,33 @@
+URL = `10.218.4.160:3000`
+const search = new URLSearchParams(window.location.search)
+let player = search.get('player')
+let otherPlayer = null
+playerSelect = () => {
+    if (player === "p1") {
+        otherPlayer = state.p2
+        player = state.p1
+    } else {
+        otherPlayer = state.p1
+        player = state.p2
+    }
+}
+
+
 state = {
-    p1: {
+    "p1": {
         life: null,
         deck: [],
+        deckId: null,
         hand: [],
         field: [],
         currentCard: null,
         drawnCard: false,
         turnSummonedMonsters: 0
     },
-    p2: {
+    "p2": {
         life: null,
         deck: [],
+        deckId: null,
         hand: [],
         field: [],
         currentCard: null,
@@ -29,8 +46,8 @@ const oppLifeCounter = document.querySelector('.opp-lifepoints')
 gameStart = () => {
     p1.life = 4000
     p2.life = 4000
-    myLifeCounter.innerText = `Your Lifepoints: ${p1.life}`
-    oppLifeCounter.innerText = `Oppostion Lifepoints: ${p2.life}`
+    myLifeCounter.innerText = `Your Lifepoints: ${player.life}`
+    oppLifeCounter.innerText = `Oppostion Lifepoints: ${otherPlayer.life}`
 }
 
 
@@ -62,7 +79,7 @@ removeFromFieldState = card => {
 startingHand = () => {
     for (let i = 0; i < 3; i++) {
         // /debugger
-        card = p1.deck.pop()
+        card = player.deck.pop()
         renderHandCard(card)
         addToHandState(card)
     }
@@ -220,24 +237,29 @@ endTurnButton.addEventListener('click', () => endTurn())
 let gamestate = []
 
 function getActiveGame(id) {
-    return fetch(`http://localhost:3000/api/v1/games/${id}`).then(function (response) { return response.json() }).then(game => getGameState(game))
+    return fetch(`http://${URL}/api/v1/games/${id}`).then(function (response) { return response.json() }).then(game => getGameState(game))
 }
 
 function getGame(id) {
-    fetch(`http://localhost:3000/api/v1/games/${id}`).then(function (response) { return response.json() }).then(game => getGameState(game)).then(getMyDeck).then(getOppDeck).then(gameStart)
+    fetch(`http://${URL}/api/v1/games/${id}`).then(function (response) { return response.json() }).then(game => getGameState(game)).then(getMyDeck).then(getOppDeck).then(gameStart)
 }
 
-function getGameState(game) { gamestate = game.gamestate }
+function getGameState(game) {
+    gamestate = game.gamestate
+    p1.deckId = gamestate.p1deckid
+    debugger
+    p2.deckId = gamestate.p2deckid
+}
 
 let currentCard = null
 
 function getCard(card_id) {
-    return fetch(`http://localhost:3000/api/v1/cards/${card_id}`).then(function (response) { return response.json() })
+    return fetch(`http://${URL}/api/v1/cards/${card_id}`).then(function (response) { return response.json() })
 }
 
 
 function updateGameState() {
-    fetch(`http://localhost:3000/api/v1/games/${gamestate.game_id}`, {
+    fetch(`http://${URL}/api/v1/games/${gamestate.game_id}`, {
         method: 'PUT',
         body: JSON.stringify(gamestate),
         headers: {
@@ -249,18 +271,18 @@ function updateGameState() {
 }
 
 function getMyDeck() {
-    fetch(`http://localhost:3000/api/v1/decks/${gamestate.p1deckid}`).then(function (response) { return response.json() }).then(deck => loadDeck(deck, "me")).then(startingHand)
+    fetch(`http://${URL}/api/v1/decks/${player.deckId}`).then(function (response) { return response.json() }).then(deck => loadDeck(deck, "me")).then(startingHand)
 }
 
 function getOppDeck() {
-    fetch(`http://localhost:3000/api/v1/decks/${gamestate.p2deckid}`).then(function (response) { return response.json() }).then(deck => loadDeck(deck, "opp"))
+    fetch(`http://${URL}/api/v1/decks/${otherPlayer.deckId}`).then(function (response) { return response.json() }).then(deck => loadDeck(deck, "opp"))
 }
 
-function loadDeck(deck, player) {
-    if (player === "me") {
-        p1.deck = deck.cards
+function loadDeck(deck, user) {
+    if (user === "me") {
+        player.deck = deck.cards
     } else {
-        p2.deck = deck.cards
+        otherPlayer.deck = deck.cards
     }
 }
 
@@ -325,7 +347,8 @@ function startTurn() {
 }
 
 initialize = () => {
-    getGame(1)
+    playerSelect()
+    getGame(11)
     //debugger
     //getMyDeck()
     //getOppDeck()
