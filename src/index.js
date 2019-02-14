@@ -37,15 +37,12 @@ state = {
     inplay: []
 }
 
-p1 = state.p1
-p2 = state.p2
-
 const myLifeCounter = document.querySelector('.my-lifepoints')
 const oppLifeCounter = document.querySelector('.opp-lifepoints')
 
 gameStart = () => {
-    p1.life = 4000
-    p2.life = 4000
+    player.life = 4000
+    otherPlayer.life = 4000
     myLifeCounter.innerText = `Your Lifepoints: ${player.life}`
     oppLifeCounter.innerText = `Oppostion Lifepoints: ${otherPlayer.life}`
 }
@@ -59,21 +56,21 @@ const handEl = document.querySelector('#my-hand')
 //My Helper functions
 
 addToHandState = card => {
-    p1.hand.push(card)
+    player.hand.push(card)
 }
 
 addToFieldState = card => {
-    p1.field.push(card)
+    player.field.push(card)
     state.inplay.push(card)
 }
 
 removeFromHand = card => {
-    p1.hand = p1.hand.filter(c => c !== card)
-    renderHandCards(p1.hand)
+    player.hand = player.hand.filter(c => c !== card)
+    renderHandCards(player.hand)
 }
 
 removeFromFieldState = card => {
-    p1.field = p1.field.filter(c => c !== card)
+    player.field = player.field.filter(c => c !== card)
 }
 
 startingHand = () => {
@@ -111,7 +108,7 @@ renderFieldMonsters = cards => {
 
 //Opponent helper functions 
 removeFromOppFieldState = card => {
-    p2.field = p2.field.filter(c => c !== card)
+    otherPlayer.field = otherPlayer.field.filter(c => c !== card)
 }
 
 const oppFieldEl = document.querySelector('.opp-field')
@@ -121,7 +118,7 @@ renderOppFieldMonster = card => {
     cardImg.src = card.image_url
     cardImg.id = card.id
     oppFieldEl.appendChild(cardImg)
-    p2.field.push(card)
+    otherPlayer.field.push(card)
 }
 
 renderOppFieldMonsters = cards => {
@@ -136,15 +133,15 @@ attackVattack = (myMonster, oppMonster) => {
     difference = myMonster.atk - oppMonster.atk
     if (difference > 0) {
         destroyOppMonster(oppMonster)
-        p2.life -= difference
+        otherPlayer.life -= difference
     } else if (difference < 0) {
         destroyMyMonster(myMonster)
-        p1.life += difference
+        player.life += difference
     } else {
         alert("Monsters have the same attack points. Nothing happens")
     }
-    myLifeCounter.innerText = `Your Lifepoints: ${p1.life}`
-    oppLifeCounter.innerText = `Oppostion Lifepoints: ${p2.life}`
+    myLifeCounter.innerText = `Your Lifepoints: ${player.life}`
+    oppLifeCounter.innerText = `Oppostion Lifepoints: ${otherPlayer.life}`
 }
 
 
@@ -168,12 +165,12 @@ fieldEl.addEventListener('click', e => {
 //Destroying monster 
 destroyMyMonster = card => {
     removeFromFieldState(card)
-    renderFieldMonsters(p1.field)
+    renderFieldMonsters(player.field)
 }
 
 destroyOppMonster = card => {
     removeFromOppFieldState(card)
-    renderOppFieldMonsters(p2.field)
+    renderOppFieldMonsters(otherPlayer.field)
 }
 
 //Draw card 
@@ -207,12 +204,12 @@ renderFieldMonster = card => {
 }
 
 playCard = card => {
-    if (p1.turnSummonedMonsters < 2) {
+    if (player.turnSummonedMonsters < 2) {
         renderFieldMonster(card)
         addToFieldState(card)
         removeFromHand(card)
-        renderHandCards(p1.hand)
-        p1.turnSummonedMonsters += 1
+        renderHandCards(player.hand)
+        player.turnSummonedMonsters += 1
     } else {
         alert("You've already summoned 2 monsters this turn")
     }
@@ -222,7 +219,7 @@ playCard = card => {
 const handCards = document.querySelector('#my-hand')
 
 handCards.addEventListener('click', e => {
-    car = p1.hand.find(card => card.id == e.target.id)
+    car = player.hand.find(card => card.id == e.target.id)
     playCard(car)
 })
 
@@ -246,9 +243,8 @@ function getGame(id) {
 
 function getGameState(game) {
     gamestate = game.gamestate
-    p1.deckId = gamestate.p1deckid
-    debugger
-    p2.deckId = gamestate.p2deckid
+    player.deckId = gamestate.p1deckid
+    otherPlayer.deckId = gamestate.p2deckid
 }
 
 let currentCard = null
@@ -305,43 +301,43 @@ function cardDeconverter(cardIds, array) {
 }
 
 function endTurn() {
-    gamestate.p1life = p1.life
-    gamestate.p2life = p2.life
+    gamestate.p1life = player.life
+    gamestate.p2life = otherPlayer.life
     gamestate.turn = gamestate.player2_id
-    gamestate.p1deck = cardConverter(p1.deck)
-    gamestate.p2deck = cardConverter(p2.deck)
-    gamestate.p1hand = cardConverter(p1.hand)
-    gamestate.p2hand = cardConverter(p2.hand)
-    gamestate.p1field = cardConverter(p1.field)
-    gamestate.p2field = cardConverter(p2.field)
+    gamestate.p1deck = cardConverter(player.deck)
+    gamestate.p2deck = cardConverter(otherPlayer.deck)
+    gamestate.p1hand = cardConverter(player.hand)
+    gamestate.p2hand = cardConverter(otherPlayer.hand)
+    gamestate.p1field = cardConverter(player.field)
+    gamestate.p2field = cardConverter(otherPlayer.field)
     updateGameState()
 }
 
 function startTurn() {
     getActiveGame(11).then(() => {
         (async function () {
-            p1.life = gamestate.p1life
-            p2.life = gamestate.p2life
+            player.life = gamestate.p1life
+            otherPlayer.life = gamestate.p2life
             gamestate.turn = gamestate.player1_id
-            p1.deck = []
-            p2.deck = []
-            p1.hand = []
-            p2.hand = []
-            p1.field = []
-            p2.field = []
-            await cardDeconverter(JSON.parse(gamestate.p1deck), p1.deck)
-            await cardDeconverter(JSON.parse(gamestate.p2deck), p2.deck)
-            await cardDeconverter(JSON.parse(gamestate.p1hand), p1.hand)
-            await cardDeconverter(JSON.parse(gamestate.p2hand), p2.hand)
-            await cardDeconverter(JSON.parse(gamestate.p1field), p1.field)
-            await cardDeconverter(JSON.parse(gamestate.p2field), p2.field)
-            p1.turnSummonedMonsters = 0
-            p1.drawnCard = false
+            player.deck = []
+            otherPlayer.deck = []
+            player.hand = []
+            otherPlayer.hand = []
+            player.field = []
+            otherPlayer.field = []
+            await cardDeconverter(JSON.parse(gamestate.p1deck), player.deck)
+            await cardDeconverter(JSON.parse(gamestate.p2deck), otherPlayer.deck)
+            await cardDeconverter(JSON.parse(gamestate.p1hand), player.hand)
+            await cardDeconverter(JSON.parse(gamestate.p2hand), otherPlayer.hand)
+            await cardDeconverter(JSON.parse(gamestate.p1field), player.field)
+            await cardDeconverter(JSON.parse(gamestate.p2field), otherPlayer.field)
+            player.turnSummonedMonsters = 0
+            player.drawnCard = false
         })
     }).then(() => {
-        renderHandCards(p1.hand)
-        renderFieldMonsters(p1.field)
-        renderOppFieldMonsters(p2.field)
+        renderHandCards(player.hand)
+        renderFieldMonsters(player.field)
+        renderOppFieldMonsters(otherPlayer.field)
         console.log("done!")
     })
 }
