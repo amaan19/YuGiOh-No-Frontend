@@ -208,6 +208,13 @@ handCards.addEventListener('click', e => {
     playCard(car)
 })
 
+//End Turn 
+
+const endTurnButton = document.querySelector('#end-turn')
+
+endTurnButton.addEventListener('click', () => endTurn())
+
+//Server stuff 
 
 let gamestate = []
 
@@ -306,6 +313,11 @@ function startTurn() {
         cardDeconverter(JSON.parse(gamestate.p1field), p1.field)
         p2.field = []
         cardDeconverter(JSON.parse(gamestate.p2field), p2.field)
+        p1.turnSummonedMonsters = 0
+        p1.drawnCard = false
+        renderHandCards(p1.hand)
+        renderFieldMonsters(p1.field)
+        renderOppFieldMonsters(p2.field)
     })
 }
 
