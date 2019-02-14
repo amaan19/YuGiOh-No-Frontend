@@ -1,9 +1,7 @@
-
-
 state = {
     p1: {
         life: null,
-        deck: deck1,
+        deck: [],
         hand: [],
         field: [],
         currentCard: null,
@@ -12,7 +10,7 @@ state = {
     },
     p2: {
         life: null,
-        deck: deck2,
+        deck: [],
         hand: [],
         field: [],
         currentCard: null,
@@ -63,6 +61,7 @@ removeFromFieldState = card => {
 
 startingHand = () => {
     for (let i = 0; i < 3; i++) {
+        // /debugger
         card = p1.deck.pop()
         renderHandCard(card)
         addToHandState(card)
@@ -212,8 +211,12 @@ handCards.addEventListener('click', e => {
 
 let gamestate = []
 
+function getActiveGame(id) {
+    return fetch(`http://localhost:3000/api/v1/games/${id}`).then(function (response) { return response.json() }).then(game => getGameState(game))
+}
+
 function getGame(id) {
-    fetch(`http://localhost:3000/api/v1/games/${id}`).then(function (response) { return response.json() }).then(game => getGameState(game))
+    fetch(`http://localhost:3000/api/v1/games/${id}`).then(function (response) { return response.json() }).then(game => getGameState(game)).then(getMyDeck).then(getOppDeck).then(gameStart)
 }
 
 function getGameState(game) { gamestate = game.gamestate }
@@ -221,7 +224,7 @@ function getGameState(game) { gamestate = game.gamestate }
 let currentCard = null
 
 function getCard(card_id) {
-    fetch(`http://localhost:3000/api/v1/cards/${card_id}`).then(function (response) { return response.json() }).then(card => currentCard = card)
+    return fetch(`http://localhost:3000/api/v1/cards/${card_id}`).then(function (response) { return response.json() })
 }
 
 
@@ -238,7 +241,7 @@ function updateGameState() {
 }
 
 function getMyDeck() {
-    fetch(`http://localhost:3000/api/v1/decks/${gamestate.p1deckid}`).then(function (response) { return response.json() }).then(deck => loadDeck(deck, "me"))
+    fetch(`http://localhost:3000/api/v1/decks/${gamestate.p1deckid}`).then(function (response) { return response.json() }).then(deck => loadDeck(deck, "me")).then(startingHand)
 }
 
 function getOppDeck() {
@@ -247,13 +250,71 @@ function getOppDeck() {
 
 function loadDeck(deck, player) {
     if (player === "me") {
-        deck1 = deck.cards
+        p1.deck = deck.cards
     } else {
-        deck2 = deck.cards
+        p2.deck = deck.cards
     }
 }
 
+function cardConverter(cards) {
+    cardArray = []
+    for (card of cards) {
+        cardArray.push(card.id)
+    }
+    return cardArray
+}
+
+function cardDeconverter(cardIds, array) {
+    // cardArray = []
+    if (cardIds) {
+        for (card of cardIds) {
+            getCard(card).then(card => array.push(card))
+        }
+        console.log("HELP!")
+    }
+    // return cardArray
+}
+
+function endTurn() {
+    gamestate.p1life = p1.life
+    gamestate.p2life = p2.life
+    gamestate.turn = gamestate.player2_id
+    gamestate.p1deck = cardConverter(p1.deck)
+    gamestate.p2deck = cardConverter(p2.deck)
+    gamestate.p1hand = cardConverter(p1.hand)
+    gamestate.p2hand = cardConverter(p2.hand)
+    gamestate.p1field = cardConverter(p1.field)
+    gamestate.p2field = cardDeconverter(p2.field)
+    updateGameState()
+}
+
+function startTurn() {
+    getActiveGame(11).then(() => {
+        p1.life = gamestate.p1life
+        p2.life = gamestate.p2life
+        gamestate.turn = gamestate.player1_id
+        p1.deck = []
+        cardDeconverter(JSON.parse(gamestate.p1deck), p1.deck)
+        // debugger
+        p2.deck = []
+        cardDeconverter(JSON.parse(gamestate.p2deck), p2.deck)
+        p1.hand = []
+        cardDeconverter(JSON.parse(gamestate.p1hand), p1.hand)
+        p2.hand = []
+        cardDeconverter(JSON.parse(gamestate.p2hand), p2.hand)
+        p1.field = []
+        cardDeconverter(JSON.parse(gamestate.p1field), p1.field)
+        p2.field = []
+        cardDeconverter(JSON.parse(gamestate.p2field), p2.field)
+    })
+}
+
 initialize = () => {
+    getGame(11)
+    //debugger
+    //getMyDeck()
+    //getOppDeck()
+
     startingHand()
     gameStart()
 
