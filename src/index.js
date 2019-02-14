@@ -291,7 +291,7 @@ function endTurn() {
     gamestate.p1hand = cardConverter(p1.hand)
     gamestate.p2hand = cardConverter(p2.hand)
     gamestate.p1field = cardConverter(p1.field)
-    gamestate.p2field = cardDeconverter(p2.field)
+    gamestate.p2field = cardConverter(p2.field)
     updateGameState()
 }
 
