@@ -1,169 +1,7 @@
-deck1 = [
-    {
-        "id": "549481",
-        "name": "Prevent Rat",
-        "desc": "This creature is shielded with a tough hide of hair and is excellent at defending itself.",
-        "atk": "500",
-        "def": "2000",
-        "type": "Normal Monster",
-        "level": "4",
-        "race": "Beast",
-        "attribute": "EARTH",
-        "image_url": "https://storage.googleapis.com/ygoprodeck.com/pics/549481.jpg",
-        "image_url_small": "https://storage.googleapis.com/ygoprodeck.com/pics_small/549481.jpg"
-    },
-    {
-        "id": "732302",
-        "name": "Temple of Skulls",
-        "desc": "A mysterious temple of skulls and bones that pulls in unsuspecting enemies.",
-        "atk": "900",
-        "def": "1300",
-        "type": "Normal Monster",
-        "level": "4",
-        "race": "Zombie",
-        "attribute": "DARK",
-        "image_url": "https://storage.googleapis.com/ygoprodeck.com/pics/732302.jpg",
-        "image_url_small": "https://storage.googleapis.com/ygoprodeck.com/pics_small/732302.jpg"
-    },
-    {
-        "id": "1184620",
-        "name": "Kojikocy",
-        "desc": "A man-hunter with powerful arms that can crush boulders.",
-        "atk": "1500",
-        "def": "1200",
-        "type": "Normal Monster",
-        "level": "4",
-        "race": "Warrior",
-        "attribute": "EARTH",
-        "image_url": "https://storage.googleapis.com/ygoprodeck.com/pics/1184620.jpg",
-        "image_url_small": "https://storage.googleapis.com/ygoprodeck.com/pics_small/1184620.jpg"
-    },
-    {
-        "id": "1784619",
-        "name": "Uraby",
-        "desc": "Fast on its feet, this dinosaur rips enemies to shreds with its sharp claws.",
-        "atk": "1500",
-        "def": "800",
-        "type": "Normal Monster",
-        "level": "4",
-        "race": "Dinosaur",
-        "attribute": "EARTH",
-        "image_url": "https://storage.googleapis.com/ygoprodeck.com/pics/1784619.jpg",
-        "image_url_small": "https://storage.googleapis.com/ygoprodeck.com/pics_small/1784619.jpg"
-    },
-    {
-        "id": "2118022",
-        "name": "Hyosube",
-        "desc": "This amphibian is strong on the attack, but leaves much to be desired when defending.",
-        "atk": "1500",
-        "def": "900",
-        "type": "Normal Monster",
-        "level": "4",
-        "race": "Aqua",
-        "attribute": "WATER",
-        "image_url": "https://storage.googleapis.com/ygoprodeck.com/pics/2118022.jpg",
-        "image_url_small": "https://storage.googleapis.com/ygoprodeck.com/pics_small/2118022.jpg"
-    },
-    {
-        "id": "5053103",
-        "name": "Battle Ox",
-        "desc": "A monster with tremendous power, it destroys enemies with a swing of its axe.",
-        "atk": "1700",
-        "def": "1000",
-        "type": "Normal Monster",
-        "level": "4",
-        "race": "Beast-Warrior",
-        "attribute": "EARTH",
-        "image_url": "https://storage.googleapis.com/ygoprodeck.com/pics/5053103.jpg",
-        "image_url_small": "https://storage.googleapis.com/ygoprodeck.com/pics_small/5053103.jpg"
-    },
-    {
-        "id": "5265750",
-        "name": "Skull Mariner",
-        "desc": "A pirate ship that appears out of the mist and sinks any seagoing vessels.",
-        "atk": "1600",
-        "def": "900",
-        "type": "Normal Monster",
-        "level": "4",
-        "race": "Warrior",
-        "attribute": "WATER",
-        "image_url": "https://storage.googleapis.com/ygoprodeck.com/pics/5265750.jpg",
-        "image_url_small": "https://storage.googleapis.com/ygoprodeck.com/pics_small/5265750.jpg"
-    }
-]
-
-deck2 = [
-    {
-        "id": "2311603",
-        "name": "Overdrive",
-        "desc": "An all-terrain armored vehicle armed with a heavy-duty machine gun.",
-        "atk": "1600",
-        "def": "1500",
-        "type": "Normal Monster",
-        "level": "4",
-        "race": "Machine",
-        "attribute": "EARTH",
-        "image_url": "https://storage.googleapis.com/ygoprodeck.com/pics/2311603.jpg",
-        "image_url_small": "https://storage.googleapis.com/ygoprodeck.com/pics_small/2311603.jpg"
-    },
-    {
-        "id": "2483611",
-        "name": "Water Omotics",
-        "desc": "Transforms the water overflowing from a jar into attacking dragons.",
-        "atk": "1400",
-        "def": "1200",
-        "type": "Normal Monster",
-        "level": "4",
-        "race": "Aqua",
-        "attribute": "WATER",
-        "image_url": "https://storage.googleapis.com/ygoprodeck.com/pics/2483611.jpg",
-        "image_url_small": "https://storage.googleapis.com/ygoprodeck.com/pics_small/2483611.jpg"
-    },
-    {
-        "id": "2863439",
-        "name": "Fiend Reflection 2",
-        "desc": "A bird-beast that summons reinforcements with a hand mirror.",
-        "atk": "1100",
-        "def": "1400",
-        "type": "Normal Monster",
-        "level": "4",
-        "race": "Winged Beast",
-        "attribute": "LIGHT",
-        "image_url": "https://storage.googleapis.com/ygoprodeck.com/pics/2863439.jpg",
-        "image_url_small": "https://storage.googleapis.com/ygoprodeck.com/pics_small/2863439.jpg"
-    },
-    {
-        "id": "2906250",
-        "name": "Grappler",
-        "desc": "A devious snake with a thick body that wraps around an enemy monster and squeezes the life out of it.",
-        "atk": "1300",
-        "def": "1200",
-        "type": "Normal Monster",
-        "level": "4",
-        "race": "Reptile",
-        "attribute": "WATER",
-        "image_url": "https://storage.googleapis.com/ygoprodeck.com/pics/2906250.jpg",
-        "image_url_small": "https://storage.googleapis.com/ygoprodeck.com/pics_small/2906250.jpg"
-    },
-    {
-        "id": "3134241",
-        "name": "Flying Kamakiri 2",
-        "desc": "A flying mantis that feeds primarily on insects.",
-        "atk": "1500",
-        "def": "800",
-        "type": "Normal Monster",
-        "level": "4",
-        "race": "Insect",
-        "attribute": "WIND",
-        "image_url": "https://storage.googleapis.com/ygoprodeck.com/pics/3134241.jpg",
-        "image_url_small": "https://storage.googleapis.com/ygoprodeck.com/pics_small/3134241.jpg"
-    }
-]
-
 state = {
     p1: {
         life: null,
-        deck: deck1,
+        deck: [],
         hand: [],
         field: [],
         currentCard: null,
@@ -172,7 +10,7 @@ state = {
     },
     p2: {
         life: null,
-        deck: deck2,
+        deck: [],
         hand: [],
         field: [],
         currentCard: null,
@@ -223,6 +61,7 @@ removeFromFieldState = card => {
 
 startingHand = () => {
     for (let i = 0; i < 3; i++) {
+        // /debugger
         card = p1.deck.pop()
         renderHandCard(card)
         addToHandState(card)
@@ -372,8 +211,12 @@ handCards.addEventListener('click', e => {
 
 let gamestate = []
 
+function getActiveGame(id) {
+    return fetch(`http://localhost:3000/api/v1/games/${id}`).then(function (response) { return response.json() }).then(game => getGameState(game))
+}
+
 function getGame(id) {
-    fetch(`http://localhost:3000/api/v1/games/${id}`).then(function (response) { return response.json() }).then(game => getGameState(game))
+    fetch(`http://localhost:3000/api/v1/games/${id}`).then(function (response) { return response.json() }).then(game => getGameState(game)).then(getMyDeck).then(getOppDeck).then(gameStart)
 }
 
 function getGameState(game) { gamestate = game.gamestate }
@@ -381,7 +224,7 @@ function getGameState(game) { gamestate = game.gamestate }
 let currentCard = null
 
 function getCard(card_id) {
-    fetch(`http://localhost:3000/api/v1/cards/${card_id}`).then(function (response) { return response.json() }).then(card => currentCard = card)
+    return fetch(`http://localhost:3000/api/v1/cards/${card_id}`).then(function (response) { return response.json() })
 }
 
 
@@ -398,7 +241,7 @@ function updateGameState() {
 }
 
 function getMyDeck() {
-    fetch(`http://localhost:3000/api/v1/decks/${gamestate.p1deckid}`).then(function (response) { return response.json() }).then(deck => loadDeck(deck, "me"))
+    fetch(`http://localhost:3000/api/v1/decks/${gamestate.p1deckid}`).then(function (response) { return response.json() }).then(deck => loadDeck(deck, "me")).then(startingHand)
 }
 
 function getOppDeck() {
@@ -407,13 +250,71 @@ function getOppDeck() {
 
 function loadDeck(deck, player) {
     if (player === "me") {
-        deck1 = deck.cards
+        p1.deck = deck.cards
     } else {
-        deck2 = deck.cards
+        p2.deck = deck.cards
     }
 }
 
+function cardConverter(cards) {
+    cardArray = []
+    for (card of cards) {
+        cardArray.push(card.id)
+    }
+    return cardArray
+}
+
+function cardDeconverter(cardIds, array) {
+    // cardArray = []
+    if (cardIds) {
+        for (card of cardIds) {
+            getCard(card).then(card => array.push(card))
+        }
+        console.log("HELP!")
+    }
+    // return cardArray
+}
+
+function endTurn() {
+    gamestate.p1life = p1.life
+    gamestate.p2life = p2.life
+    gamestate.turn = gamestate.player2_id
+    gamestate.p1deck = cardConverter(p1.deck)
+    gamestate.p2deck = cardConverter(p2.deck)
+    gamestate.p1hand = cardConverter(p1.hand)
+    gamestate.p2hand = cardConverter(p2.hand)
+    gamestate.p1field = cardConverter(p1.field)
+    gamestate.p2field = cardDeconverter(p2.field)
+    updateGameState()
+}
+
+function startTurn() {
+    getActiveGame(11).then(() => {
+        p1.life = gamestate.p1life
+        p2.life = gamestate.p2life
+        gamestate.turn = gamestate.player1_id
+        p1.deck = []
+        cardDeconverter(JSON.parse(gamestate.p1deck), p1.deck)
+        // debugger
+        p2.deck = []
+        cardDeconverter(JSON.parse(gamestate.p2deck), p2.deck)
+        p1.hand = []
+        cardDeconverter(JSON.parse(gamestate.p1hand), p1.hand)
+        p2.hand = []
+        cardDeconverter(JSON.parse(gamestate.p2hand), p2.hand)
+        p1.field = []
+        cardDeconverter(JSON.parse(gamestate.p1field), p1.field)
+        p2.field = []
+        cardDeconverter(JSON.parse(gamestate.p2field), p2.field)
+    })
+}
+
 initialize = () => {
+    getGame(11)
+    //debugger
+    //getMyDeck()
+    //getOppDeck()
+
     startingHand()
     gameStart()
 
