@@ -177,11 +177,11 @@ destroyOppMonster = card => {
 const deck = document.querySelector('#my-deck')
 
 drawCard = () => {
-    if (!p1.drawnCard) {
-        card = p1.deck.pop()
+    if (!player.drawnCard) {
+        card = player.deck.pop()
         addToHandState(card)
         renderHandCard(card)
-        p1.drawnCard = true
+        player.drawnCard = true
     } else {
         alert("You've already drawn a card this turn")
     }
@@ -243,8 +243,13 @@ function getGame(id) {
 
 function getGameState(game) {
     gamestate = game.gamestate
-    player.deckId = gamestate.p1deckid
-    otherPlayer.deckId = gamestate.p2deckid
+    if (search.get("player")==="p1") {
+        player.deckId = gamestate.p1deckid
+        otherPlayer.deckId = gamestate.p2deckid
+    } else {
+        player.deckId = gamestate.p2deckid
+        otherPlayer.deckId = gamestate.p1deckid
+    }
 }
 
 let currentCard = null
