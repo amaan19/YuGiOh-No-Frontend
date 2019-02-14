@@ -296,7 +296,7 @@ function endTurn() {
 }
 
 function startTurn() {
-    getActiveGame(11).then(() => {
+    getActiveGame(1).then(() => {
         p1.life = gamestate.p1life
         p2.life = gamestate.p2life
         gamestate.turn = gamestate.player1_id
@@ -322,7 +322,7 @@ function startTurn() {
 }
 
 initialize = () => {
-    getGame(11)
+    getGame(1)
     //debugger
     //getMyDeck()
     //getOppDeck()
