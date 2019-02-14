@@ -75,10 +75,11 @@ renderHandCard = card => {
     handEl.appendChild(cardImg)
 }
 
-renderHandCards = cards => {
+renderHandCards = newCards => {
     handCards.innerHTML = ''
-    cards.forEach(card => {
-        renderHandCard(card)
+    newCards.forEach(card1 => {
+        console.log(card1)
+        renderHandCard(card1)
     })
 }
 
@@ -277,7 +278,6 @@ function cardDeconverter(cardIds, array) {
         for (card of cardIds) {
             getCard(card).then(card => array.push(card))
         }
-        console.log("HELP!")
     }
     // return cardArray
 }
@@ -297,27 +297,30 @@ function endTurn() {
 
 function startTurn() {
     getActiveGame(11).then(() => {
-        p1.life = gamestate.p1life
-        p2.life = gamestate.p2life
-        gamestate.turn = gamestate.player1_id
-        p1.deck = []
-        cardDeconverter(JSON.parse(gamestate.p1deck), p1.deck)
-        // debugger
-        p2.deck = []
-        cardDeconverter(JSON.parse(gamestate.p2deck), p2.deck)
-        p1.hand = []
-        cardDeconverter(JSON.parse(gamestate.p1hand), p1.hand)
-        p2.hand = []
-        cardDeconverter(JSON.parse(gamestate.p2hand), p2.hand)
-        p1.field = []
-        cardDeconverter(JSON.parse(gamestate.p1field), p1.field)
-        p2.field = []
-        cardDeconverter(JSON.parse(gamestate.p2field), p2.field)
-        p1.turnSummonedMonsters = 0
-        p1.drawnCard = false
+        (async function () {
+            p1.life = gamestate.p1life
+            p2.life = gamestate.p2life
+            gamestate.turn = gamestate.player1_id
+            p1.deck = []
+            p2.deck = []
+            p1.hand = []
+            p2.hand = []
+            p1.field = []
+            p2.field = []
+            await cardDeconverter(JSON.parse(gamestate.p1deck), p1.deck)
+            await cardDeconverter(JSON.parse(gamestate.p2deck), p2.deck)
+            await cardDeconverter(JSON.parse(gamestate.p1hand), p1.hand)
+            await cardDeconverter(JSON.parse(gamestate.p2hand), p2.hand)
+            await cardDeconverter(JSON.parse(gamestate.p1field), p1.field)
+            await cardDeconverter(JSON.parse(gamestate.p2field), p2.field)
+            p1.turnSummonedMonsters = 0
+            p1.drawnCard = false
+        })
+    }).then(() => {
         renderHandCards(p1.hand)
         renderFieldMonsters(p1.field)
         renderOppFieldMonsters(p2.field)
+        console.log("done!")
     })
 }
 
