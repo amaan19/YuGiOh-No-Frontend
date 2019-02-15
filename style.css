@@ -181,6 +181,10 @@ img {
   border-color: red;
 }
 
+.hide {
+  display: none;
+}
+
 .button {
   font-family: MatrixBold;
   text-align: center;

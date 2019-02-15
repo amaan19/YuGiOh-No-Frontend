@@ -144,7 +144,6 @@ renderOppFieldMonsters = cards => {
 
 //Attacking 
 attackVattack = (myMonster, oppMonster) => {
-    debugger
     difference = myMonster.atk - oppMonster.atk
     if (difference > 0) {
         destroyOppMonster(oppMonster)
@@ -244,8 +243,16 @@ handCards.addEventListener('click', e => {
 
 const endTurnButton = document.querySelector('#end-turn')
 
-endTurnButton.addEventListener('click', () => endTurn())
+endTurnButton.addEventListener('click', () => {
+    endTurn()
 
+})
+
+//Start Turn 
+const startTurnButton = document.querySelector('#start-turn')
+startTurnButton.addEventListener('click', () => {
+    startTurn()
+})
 //Server stuff 
 
 let gamestate = []
@@ -337,7 +344,6 @@ function cardDeconverter(cardIds, array) {
 
 function endTurn() {
     if (search.get("player") === "p1") {
-        debugger
         gamestate.p1life = player.life
         gamestate.p2life = otherPlayer.life
         gamestate.turn = gamestate.player2_id
@@ -348,7 +354,6 @@ function endTurn() {
         gamestate.p1field = _.uniq(player.field, "id")
         gamestate.p2field = _.uniq(otherPlayer.field, "id")
     } else {
-        debugger
         gamestate.p1life = otherPlayer.life
         gamestate.p2life = player.life
         gamestate.turn = gamestate.player1_id
