@@ -1,4 +1,4 @@
-URL = `10.218.5.104:3000`
+URL = `localhost:3000`
 const search = new URLSearchParams(window.location.search)
 let player = search.get('player')
 let otherPlayer = null
@@ -237,13 +237,11 @@ let gamestate = []
 
 convertJson = game => {
     game.gamestate.p1deck = JSON.parse(game.gamestate.p1deck.replace(/=>/g, ":"))
-
     game.gamestate.p1field = JSON.parse(game.gamestate.p1field.replace(/=>/g, ":"))
     game.gamestate.p1hand = JSON.parse(game.gamestate.p1hand.replace(/=>/g, ":"))
     game.gamestate.p2deck = JSON.parse(game.gamestate.p2deck.replace(/=>/g, ":"))
     game.gamestate.p2field = JSON.parse(game.gamestate.p2field.replace(/=>/g, ":"))
     game.gamestate.p2hand = JSON.parse(game.gamestate.p2hand.replace(/=>/g, ":"))
-
 }
 
 function getActiveGame(id) {
@@ -256,6 +254,7 @@ function getGame(id) {
 }
 
 function getGameState(game) {
+    //debugger
     convertJson(game)
     gamestate = game.gamestate
     if (search.get("player") === "p1") {
@@ -347,7 +346,7 @@ function endTurn() {
 }
 
 function startTurn() {
-    getActiveGame(1).then(() => {
+    getActiveGame(11).then(() => {
         player.life = gamestate.p1life
         otherPlayer.life = gamestate.p2life
         gamestate.turn = gamestate.player1_id
@@ -363,16 +362,16 @@ function startTurn() {
             otherPlayer.deck = gamestate.p2deck
             player.hand = gamestate.p1hand
             otherPlayer.hand = gamestate.p2hand
-            player.field = gamestate.p1field
-            otherPlayer.field = gamestate.p2field
+            player.field = _.uniq(gamestate.p1field, "id")
+            otherPlayer.field = _.uniq(gamestate.p2field, "id")
         } else {
             // debugger
             player.deck = gamestate.p2deck
             otherPlayer.deck = gamestate.p1deck
             player.hand = gamestate.p2hand
             otherPlayer.hand = gamestate.p1hand
-            player.field = gamestate.p2field
-            otherPlayer.field = gamestate.p1field
+            player.field = _.uniq(gamestate.p2field, "id")
+            otherPlayer.field = _.uniq(gamestate.p1field, "id")
         }
         player.turnSummonedMonsters = 0
         player.drawnCard = false
@@ -387,7 +386,7 @@ function startTurn() {
 
 initialize = () => {
     playerSelect()
-    getGame(1)
+    getGame(11)
     //debugger
     //getMyDeck()
     //getOppDeck()
