@@ -144,6 +144,7 @@ renderOppFieldMonsters = cards => {
 
 //Attacking 
 attackVattack = (myMonster, oppMonster) => {
+    debugger
     difference = myMonster.atk - oppMonster.atk
     if (difference > 0) {
         destroyOppMonster(oppMonster)
@@ -336,6 +337,7 @@ function cardDeconverter(cardIds, array) {
 
 function endTurn() {
     if (search.get("player") === "p1") {
+        debugger
         gamestate.p1life = player.life
         gamestate.p2life = otherPlayer.life
         gamestate.turn = gamestate.player2_id
@@ -346,6 +348,7 @@ function endTurn() {
         gamestate.p1field = _.uniq(player.field, "id")
         gamestate.p2field = _.uniq(otherPlayer.field, "id")
     } else {
+        debugger
         gamestate.p1life = otherPlayer.life
         gamestate.p2life = player.life
         gamestate.turn = gamestate.player1_id
@@ -396,6 +399,8 @@ function startTurn() {
         renderHandCards(player.hand)
         renderFieldMonsters(player.field)
         renderOppFieldMonstersAtStart(otherPlayer.field)
+        myLifeCounter.innerText = `Your Lifepoints: ${player.life}`
+        oppLifeCounter.innerText = `Oppostion Lifepoints: ${otherPlayer.life}`
         console.log("done!")
     })
 }
