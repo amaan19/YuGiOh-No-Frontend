@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 URL = `localhost:3000`
-=======
-URL = `10.218.5.104:3000`
->>>>>>> 3a28d2971da7bdc7b52c8d81a9753124ae359ffa
 const search = new URLSearchParams(window.location.search)
 let player = search.get('player')
 let otherPlayer = null
@@ -335,7 +331,6 @@ function endTurn() {
 }
 
 function startTurn() {
-<<<<<<< HEAD
     getActiveGame(11).then(() => {
         player.life = gamestate.p1life
         otherPlayer.life = gamestate.p2life
@@ -366,39 +361,6 @@ function startTurn() {
         player.turnSummonedMonsters = 0
         player.drawnCard = false
 
-=======
-    getActiveGame(1).then(() => {
-        (async function () {
-            player.life = gamestate.p1life
-            otherPlayer.life = gamestate.p2life
-            gamestate.turn = gamestate.player1_id
-            player.deck = []
-            otherPlayer.deck = []
-            player.hand = []
-            otherPlayer.hand = []
-            player.field = []
-            otherPlayer.field = []
-            if (search.get("player") === "p1") {
-                //debugger
-                await cardDeconverter(JSON.parse(gamestate.p1deck), player.deck)
-                await cardDeconverter(JSON.parse(gamestate.p2deck), otherPlayer.deck)
-                await cardDeconverter(JSON.parse(gamestate.p1hand), player.hand)
-                await cardDeconverter(JSON.parse(gamestate.p2hand), otherPlayer.hand)
-                await cardDeconverter(JSON.parse(gamestate.p1field), player.field)
-                await cardDeconverter(JSON.parse(gamestate.p2field), otherPlayer.field)
-            } else {
-                debugger
-                await cardDeconverter(JSON.parse(gamestate.p2deck), player.deck)
-                await cardDeconverter(JSON.parse(gamestate.p1deck), otherPlayer.deck)
-                await cardDeconverter(JSON.parse(gamestate.p2hand), player.hand)
-                await cardDeconverter(JSON.parse(gamestate.p1hand), otherPlayer.hand)
-                await cardDeconverter(JSON.parse(gamestate.p2field), player.field)
-                await cardDeconverter(JSON.parse(gamestate.p1field), otherPlayer.field)
-            }
-            player.turnSummonedMonsters = 0
-            player.drawnCard = false
-        })
->>>>>>> 3a28d2971da7bdc7b52c8d81a9753124ae359ffa
     }).then(() => {
         renderHandCards(player.hand)
         renderFieldMonsters(player.field)
