@@ -1,4 +1,5 @@
 URL = `localhost:3000`
+const gameid = 1
 const search = new URLSearchParams(window.location.search)
 let player = search.get('player')
 let otherPlayer = null
@@ -121,16 +122,28 @@ renderOppFieldMonster = card => {
     otherPlayer.field.push(card)
 }
 
+renderOppFieldMonsterAtStart = card => {
+    cardImg = document.createElement('img')
+    cardImg.src = card.image_url
+    cardImg.id = card.id
+    oppFieldEl.appendChild(cardImg)
+}
+
+renderOppFieldMonstersAtStart = cards => {
+    oppFieldEl.innerHTML = ''
+    _.uniq(cards).forEach(c => renderOppFieldMonsterAtStart(c))
+}
+
+
 renderOppFieldMonsters = cards => {
     oppFieldEl.innerHTML = ''
-    cards.forEach(c => renderOppFieldMonster(c))
+    _.uniq(cards).forEach(c => renderOppFieldMonster(c))
 }
 
 
 
 //Attacking 
 attackVattack = (myMonster, oppMonster) => {
-    debugger
     difference = myMonster.atk - oppMonster.atk
     if (difference > 0) {
         destroyOppMonster(oppMonster)
@@ -150,7 +163,7 @@ const fieldEl = document.querySelector('.my-monsters')
 
 fieldEl.addEventListener('click', e => {
     if (e.target.nodeName === "IMG") {
-        debugger
+
         myCard = player.field.find(c => c.id == e.target.id)
         e.target.classList.toggle('atk-card')
         oppFieldEl.addEventListener('click', ev => {
@@ -172,6 +185,7 @@ destroyMyMonster = card => {
 
 destroyOppMonster = card => {
     removeFromOppFieldState(card)
+    otherPlayer.field = _.uniq(otherPlayer.field, "id")
     renderOppFieldMonsters(otherPlayer.field)
 }
 
@@ -329,8 +343,8 @@ function endTurn() {
         gamestate.p2deck = otherPlayer.deck
         gamestate.p1hand = player.hand
         gamestate.p2hand = otherPlayer.hand
-        gamestate.p1field = player.field
-        gamestate.p2field = otherPlayer.field
+        gamestate.p1field = _.uniq(player.field, "id")
+        gamestate.p2field = _.uniq(otherPlayer.field, "id")
     } else {
         gamestate.p1life = otherPlayer.life
         gamestate.p2life = player.life
@@ -339,14 +353,14 @@ function endTurn() {
         gamestate.p2deck = player.deck
         gamestate.p1hand = otherPlayer.hand
         gamestate.p2hand = player.hand
-        gamestate.p1field = otherPlayer.field
-        gamestate.p2field = player.field
+        gamestate.p1field = _.uniq(otherPlayer.field, "id")
+        gamestate.p2field = _.uniq(player.field, "id")
     }
     updateGameState()
 }
 
 function startTurn() {
-    getActiveGame(11).then(() => {
+    getActiveGame(gameid).then(() => {
         player.life = gamestate.p1life
         otherPlayer.life = gamestate.p2life
         gamestate.turn = gamestate.player1_id
@@ -362,6 +376,7 @@ function startTurn() {
             otherPlayer.deck = gamestate.p2deck
             player.hand = gamestate.p1hand
             otherPlayer.hand = gamestate.p2hand
+
             player.field = _.uniq(gamestate.p1field, "id")
             otherPlayer.field = _.uniq(gamestate.p2field, "id")
         } else {
@@ -370,6 +385,7 @@ function startTurn() {
             otherPlayer.deck = gamestate.p1deck
             player.hand = gamestate.p2hand
             otherPlayer.hand = gamestate.p1hand
+
             player.field = _.uniq(gamestate.p2field, "id")
             otherPlayer.field = _.uniq(gamestate.p1field, "id")
         }
@@ -379,14 +395,14 @@ function startTurn() {
     }).then(() => {
         renderHandCards(player.hand)
         renderFieldMonsters(player.field)
-        renderOppFieldMonsters(otherPlayer.field)
+        renderOppFieldMonstersAtStart(otherPlayer.field)
         console.log("done!")
     })
 }
 
 initialize = () => {
     playerSelect()
-    getGame(11)
+    getGame(gameid)
     //debugger
     //getMyDeck()
     //getOppDeck()
