@@ -284,7 +284,7 @@ function updateGameState() {
 }
 
 function getMyDeck() {
-    fetch(`http://${URL}/api/v1/decks/${player.deckId}`).then(function (response) { return response.json() }).then(deck => loadDeck(deck, "me")).then(startingHand)
+    fetch(`http://${URL}/api/v1/decks/${player.deckId}`).then(function (response) { return response.json() }).then(deck => loadDeck(deck, "me"))
 }
 
 function getOppDeck() {
