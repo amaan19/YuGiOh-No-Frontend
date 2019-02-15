@@ -1,5 +1,5 @@
 URL = `localhost:3000`
-const gameid = 1
+const gameid = 11
 const search = new URLSearchParams(window.location.search)
 let player = search.get('player')
 let otherPlayer = null
@@ -318,9 +318,9 @@ function getOppDeck() {
 
 function loadDeck(deck, user) {
     if (user === "me") {
-        player.deck = deck.cards
+        player.deck = _.shuffle(deck.cards)
     } else {
-        otherPlayer.deck = deck.cards
+        otherPlayer.deck = _.shuffle(deck.cards)
     }
 }
 
