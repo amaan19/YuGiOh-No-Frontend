@@ -130,6 +130,7 @@ renderOppFieldMonsters = cards => {
 
 //Attacking 
 attackVattack = (myMonster, oppMonster) => {
+    debugger
     difference = myMonster.atk - oppMonster.atk
     if (difference > 0) {
         destroyOppMonster(oppMonster)
@@ -149,11 +150,12 @@ const fieldEl = document.querySelector('.my-monsters')
 
 fieldEl.addEventListener('click', e => {
     if (e.target.nodeName === "IMG") {
-        myCard = player.field.find(c => c.id === e.target.id)
+        debugger
+        myCard = player.field.find(c => c.id == e.target.id)
         e.target.classList.toggle('atk-card')
         oppFieldEl.addEventListener('click', ev => {
             if (ev.target.nodeName === "IMG") {
-                oppCard = otherPlayer.field.find(c => c.id === ev.target.id)
+                oppCard = otherPlayer.field.find(c => c.id == ev.target.id)
                 attackVattack(myCard, oppCard)
                 e.target.classList.toggle('atk-card')
             }
@@ -259,6 +261,7 @@ function getGameState(game) {
     if (search.get("player") === "p1") {
         player.deckId = gamestate.p1deckid
         otherPlayer.deckId = gamestate.p2deckid
+
     } else {
         player.deckId = gamestate.p2deckid
         otherPlayer.deckId = gamestate.p1deckid
@@ -285,7 +288,7 @@ function updateGameState() {
 }
 
 function getMyDeck() {
-    fetch(`http://${URL}/api/v1/decks/${player.deckId}`).then(function (response) { return response.json() }).then(deck => loadDeck(deck, "me")).then(startingHand)
+    fetch(`http://${URL}/api/v1/decks/${player.deckId}`).then(function (response) { return response.json() }).then(deck => loadDeck(deck, "me"))
 }
 
 function getOppDeck() {
@@ -389,8 +392,6 @@ initialize = () => {
     //getMyDeck()
     //getOppDeck()
 
-    startingHand()
-    gameStart()
 
 }
 
