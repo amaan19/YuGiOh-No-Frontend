@@ -1,4 +1,4 @@
-URL = `localhost:3000`
+URL = `10.218.5.104:3000`
 const search = new URLSearchParams(window.location.search)
 let player = search.get('player')
 let otherPlayer = null
@@ -233,15 +233,28 @@ endTurnButton.addEventListener('click', () => endTurn())
 
 let gamestate = []
 
-function getActiveGame(id) {
-    return fetch(`http://${URL}/api/v1/games/${id}`).then(function (response) { return response.json() }).then(game => getGameState(game))
+convertJson = game => {
+    game.gamestate.p1deck = JSON.parse(game.gamestate.p1deck.replace(/=>/g, ":"))
+
+    game.gamestate.p1field = JSON.parse(game.gamestate.p1field.replace(/=>/g, ":"))
+    game.gamestate.p1hand = JSON.parse(game.gamestate.p1hand.replace(/=>/g, ":"))
+    game.gamestate.p2deck = JSON.parse(game.gamestate.p2deck.replace(/=>/g, ":"))
+    game.gamestate.p2field = JSON.parse(game.gamestate.p2field.replace(/=>/g, ":"))
+    game.gamestate.p2hand = JSON.parse(game.gamestate.p2hand.replace(/=>/g, ":"))
+
 }
+
+function getActiveGame(id) {
+    return fetch(`http://${URL}/api/v1/games/${id}`).then(resp => resp.json()).then(game => getGameState(game))
+}
+
 
 function getGame(id) {
     fetch(`http://${URL}/api/v1/games/${id}`).then(function (response) { return response.json() }).then(game => getGameState(game)).then(getMyDeck).then(getOppDeck).then(gameStart)
 }
 
 function getGameState(game) {
+    convertJson(game)
     gamestate = game.gamestate
     if (search.get("player") === "p1") {
         player.deckId = gamestate.p1deckid
@@ -331,7 +344,7 @@ function endTurn() {
 }
 
 function startTurn() {
-    getActiveGame(11).then(() => {
+    getActiveGame(1).then(() => {
         player.life = gamestate.p1life
         otherPlayer.life = gamestate.p2life
         gamestate.turn = gamestate.player1_id
@@ -343,20 +356,20 @@ function startTurn() {
         otherPlayer.field = []
         if (search.get("player") === "p1") {
             // debugger
-            player.deck = JSON.parse(gamestate.p1deck)
-            otherPlayer.deck = JSON.parse(gamestate.p2deck)
-            player.hand = JSON.parse(gamestate.p1hand)
-            otherPlayer.hand = JSON.parse(gamestate.p2hand)
-            player.field = JSON.parse(gamestate.p1field)
-            otherPlayer.field = JSON.parse(gamestate.p2field)
+            player.deck = gamestate.p1deck
+            otherPlayer.deck = gamestate.p2deck
+            player.hand = gamestate.p1hand
+            otherPlayer.hand = gamestate.p2hand
+            player.field = gamestate.p1field
+            otherPlayer.field = gamestate.p2field
         } else {
             // debugger
-            player.deck = JSON.parse(gamestate.p2deck)
-            otherPlayer.deck = JSON.parse(gamestate.p1deck)
-            player.hand = JSON.parse(gamestate.p2hand)
-            otherPlayer.hand = JSON.parse(gamestate.p1hand)
-            player.field = JSON.parse(gamestate.p2field)
-            otherPlayer.field = JSON.parse(gamestate.p1field)
+            player.deck = gamestate.p2deck
+            otherPlayer.deck = gamestate.p1deck
+            player.hand = gamestate.p2hand
+            otherPlayer.hand = gamestate.p1hand
+            player.field = gamestate.p2field
+            otherPlayer.field = gamestate.p1field
         }
         player.turnSummonedMonsters = 0
         player.drawnCard = false
