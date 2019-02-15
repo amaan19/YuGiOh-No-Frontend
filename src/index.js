@@ -14,7 +14,7 @@ playerSelect = () => {
 
 
 state = {
-    "p1": {
+    p1: {
         life: null,
         deck: [],
         deckId: null,
@@ -24,7 +24,7 @@ state = {
         drawnCard: false,
         turnSummonedMonsters: 0
     },
-    "p2": {
+    p2: {
         life: null,
         deck: [],
         deckId: null,
@@ -306,15 +306,28 @@ function cardDeconverter(cardIds, array) {
 }
 
 function endTurn() {
-    gamestate.p1life = player.life
-    gamestate.p2life = otherPlayer.life
-    gamestate.turn = gamestate.player2_id
-    gamestate.p1deck = cardConverter(player.deck)
-    gamestate.p2deck = cardConverter(otherPlayer.deck)
-    gamestate.p1hand = cardConverter(player.hand)
-    gamestate.p2hand = cardConverter(otherPlayer.hand)
-    gamestate.p1field = cardConverter(player.field)
-    gamestate.p2field = cardConverter(otherPlayer.field)
+    if (search.get("player") === "p1") {
+        gamestate.p1life = player.life
+        gamestate.p2life = otherPlayer.life
+        gamestate.turn = gamestate.player2_id
+        gamestate.p1deck = cardConverter(player.deck)
+        gamestate.p2deck = cardConverter(otherPlayer.deck)
+        gamestate.p1hand = cardConverter(player.hand)
+        gamestate.p2hand = cardConverter(otherPlayer.hand)
+        gamestate.p1field = cardConverter(player.field)
+        gamestate.p2field = cardConverter(otherPlayer.field)
+    } else {
+        gamestate.p1life = otherPlayer.life
+        gamestate.p2life = player.life
+        gamestate.turn = gamestate.player1_id
+        gamestate.p1deck = cardConverter(otherPlayer.deck)
+        gamestate.p2deck = cardConverter(player.deck)
+        gamestate.p1hand = cardConverter(otherPlayer.hand)
+        gamestate.p2hand = cardConverter(player.hand)
+        gamestate.p1field = cardConverter(otherPlayer.field)
+        gamestate.p2field = cardConverter(player.field)
+    }
+
     updateGameState()
 }
 
@@ -331,7 +344,7 @@ function startTurn() {
             player.field = []
             otherPlayer.field = []
             if (search.get("player") === "p1") {
-                //debugger
+                debugger
                 await cardDeconverter(JSON.parse(gamestate.p1deck), player.deck)
                 await cardDeconverter(JSON.parse(gamestate.p2deck), otherPlayer.deck)
                 await cardDeconverter(JSON.parse(gamestate.p1hand), player.hand)
