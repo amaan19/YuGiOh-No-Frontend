@@ -1,4 +1,4 @@
-URL = `10.218.4.160:3000`
+URL = `10.218.5.104:3000`
 const search = new URLSearchParams(window.location.search)
 let player = search.get('player')
 let otherPlayer = null
@@ -319,7 +319,7 @@ function endTurn() {
 }
 
 function startTurn() {
-    getActiveGame(11).then(() => {
+    getActiveGame(1).then(() => {
         (async function () {
             player.life = gamestate.p1life
             otherPlayer.life = gamestate.p2life
@@ -360,7 +360,7 @@ function startTurn() {
 
 initialize = () => {
     playerSelect()
-    getGame(11)
+    getGame(1)
     //debugger
     //getMyDeck()
     //getOppDeck()
